@@ -1,0 +1,19 @@
+{
+  "name": "ccs-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "develop": "npx fractal start --sync",
+    "build": "sass --load-path=node_modules --load-path=stylesheets ./stylesheets/main.scss ./public/main.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@frctl/fractal": "^1.1.7",
+    "govuk-frontend": "^2.0.0",
+    "sass": "^1.14.0"
+  }
+}

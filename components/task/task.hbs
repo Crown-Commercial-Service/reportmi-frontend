@@ -1,0 +1,35 @@
+<section class="ccs-task" id="task-{{ task.id }}">
+  <header class="ccs-task__information">
+    <div class="ccs-task__statuses">
+      {{#if task.complete}}
+        <strong class="govuk-tag govuk-tag__success">Completed</strong>
+      {{/if}}
+      {{#if task.error}}
+        <strong class="govuk-tag govuk-tag__failure">Errors</strong>
+      {{/if}}
+      {{#if task.late}}
+        <strong class="govuk-tag govuk-tag__warning">Late</strong>
+      {{/if}}
+    </div>
+    <div class="ccs-task__body">
+      <h3 class="govuk-heading-m">
+        {{task.framework.short_name}}
+        {{task.framework.name}}
+      </h3>
+      <h4 class="govuk-heading-s">
+        Report management information for {{month}}
+      </h4>
+    </div>
+  </header>
+  <div class="ccs-task__action">
+    <div class="ccs-task__action--primary">
+        <a href="#" class="govuk-button">Report management information</a>
+        <a href="#" class="govuk-button">Report no business (Nil return)</a>
+    </div>
+    <div class="ccs-task__action--secondary">
+      <p>
+        <a href="#">Download template</a>
+      </p>
+    </div>
+  </div>
+</section>
