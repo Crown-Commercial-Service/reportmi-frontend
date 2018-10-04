@@ -15,6 +15,10 @@ fractal.docs.set('path', __dirname + '/docs');
 /* Tell Fractal where the assets will live */
 fractal.web.set('static.path', __dirname + '/public');
 
+// destination for the static export
+fractal.web.set('builder.dest', 'dist');
+
+
 /* Tell Fractal that components default to work in progress */
 fractal.components.set('default.status', 'prototype');
 
