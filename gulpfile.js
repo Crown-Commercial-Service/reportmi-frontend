@@ -7,14 +7,6 @@ var bs = require('browser-sync').create(); // create a browser sync instance.
 
 const logger = fractal.cli.console;
 
-gulp.task('browser-sync', ['sass'], function() {
-  bs.init({
-      server: {
-          baseDir: "./"
-      }
-  });
-});
-
 gulp.task('sass', function () {
   return gulp.src('stylesheets/**/*.scss')
               .pipe(sass({includePaths: ['node_modules', 'stylesheets']}))
@@ -24,7 +16,7 @@ gulp.task('sass', function () {
 
 gulp.task('watch', function () {
   gulp.watch("stylesheets/**/*.scss", ['sass']);
-  gulp.watch("components/*").on('change', bs.reload);
+  gulp.watch(["components/**/*", "docs/**/*"]).on('change', bs.reload);
 });
 
 gulp.task('fractal:develop', ['watch'], function(){
@@ -37,8 +29,7 @@ gulp.task('fractal:develop', ['watch'], function(){
   });
 });
 
-
-gulp.task('fractal:build', function(){
+gulp.task('fractal:build', ['sass'], function(){
   const builder = fractal.web.builder();
   builder.on('progress', (completed, total) => logger.update(`Exported ${completed} of ${total} items`, 'info'));
   builder.on('error', err => logger.error(err.message));
