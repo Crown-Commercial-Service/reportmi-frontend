@@ -3,7 +3,6 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const fractal = require('./fractal');
-//var bs = require('browser-sync').create(); // create a browser sync instance.
 
 const logger = fractal.cli.console;
 
@@ -11,7 +10,6 @@ gulp.task('sass', function () {
   return gulp.src('stylesheets/**/*.scss')
               .pipe(sass({includePaths: ['node_modules', 'stylesheets']}))
               .pipe(gulp.dest('public'))
-              .pipe(bs.reload({stream: true})); // prompts a reload after compilation
 });
 
 gulp.task('watch', function () {
