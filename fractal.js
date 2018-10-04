@@ -4,7 +4,7 @@
 const fractal = module.exports = require('@frctl/fractal').create();
 
 /* Set the title of the project */
-fractal.set('project.title', 'Crown Commercial Service Frontend');
+fractal.set('project.title', 'CCS Report MI Service Frontend');
 
 /* Tell Fractal where the components will live */
 fractal.components.set('path', __dirname + '/components');

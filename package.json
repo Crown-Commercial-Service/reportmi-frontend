@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "develop": "npx fractal start --sync",
-    "build": "sass --load-path=node_modules --load-path=stylesheets ./stylesheets/main.scss ./public/main.css",
+    "develop": "npx gulp fractal:develop",
+    "build": "npm gulp fractal:build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,7 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "@frctl/fractal": "^1.1.7",
-    "govuk-frontend": "^2.0.0",
-    "sass": "^1.14.0"
+    "govuk-frontend": "^2.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.1"
   }
 }
