@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="govuk-template app-html-class">
 <head>
     <meta charset="utf-8">
     <link media="all" rel="stylesheet" href="{{ path '/main.css' }}">
+    <script type="text/javascript" src="{{ path '/all.js' }}"></script>
     <title>Preview Layout</title>
 </head>
-<body>
+<body class="govuk-template__body app-body-class">
+<script>
+    document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+</script>
 
 {{{ yield }}}
 
+<script>window.GOVUKFrontend.initAll()</script>
 </body>
 </html>

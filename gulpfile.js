@@ -17,11 +17,16 @@ gulp.task('images', function () {
               .pipe(gulp.dest('public'))
 });
 
+gulp.task('scripts', function () {
+  return gulp.src(['node_modules/govuk-frontend/all.js'])
+              .pipe(gulp.dest('public'))
+});
+
 gulp.task('watch', function () {
   gulp.watch('stylesheets/**/*.scss', ['sass']);
 });
 
-gulp.task('fractal:develop', ['watch'], function(){
+gulp.task('fractal:develop', ['scripts','images','watch'], function(){
   const server = fractal.web.server({
       sync: true
   });
@@ -31,7 +36,7 @@ gulp.task('fractal:develop', ['watch'], function(){
   });
 });
 
-gulp.task('fractal:build', ['images','sass'], function(){
+gulp.task('fractal:build', ['scripts','images','sass'], function(){
   const builder = fractal.web.builder();
   builder.on('progress', (completed, total) => logger.update(`Exported ${completed} of ${total} items`, 'info'));
   builder.on('error', err => logger.error(err.message));
