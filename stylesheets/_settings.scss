@@ -50,10 +50,10 @@ $govuk-colours: (
   "success": #0EB163
 );
 
-$govuk-font-family-nta: "Source Sans Pro", Arial, sans-serif;
-$govuk-font-family-nta-tabular: "Source Sans Pro", $govuk-font-family-nta;
-$govuk-font-family: "Source Sans Pro", Arial, sans-serif;
-$govuk-font-family-tabular: $govuk-font-family;
+/* Typography */
+$govuk-font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 $govuk-font-family-print: sans-serif;
+
 $govuk-font-weight-regular: 400;
 $govuk-font-weight-bold: 600;
+
