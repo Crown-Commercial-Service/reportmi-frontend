@@ -17,7 +17,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('images', function () {
-  return gulp.src(['node_modules/govuk-frontend/assets/images/**/*', 'images/'])
+  return gulp.src(['node_modules/govuk-frontend/assets/images/**/*', 'images/*'])
               .pipe(gulp.dest('public'))
 });
 
@@ -40,7 +40,7 @@ gulp.task('fractal:develop', ['sass','scripts','images','watch'], function(){
   });
 });
 
-gulp.task('fractal:build', ['scripts','images','sass'], function(){
+gulp.task('fractal:build', ['sass','scripts','images'], function(){
   const builder = fractal.web.builder();
   builder.on('progress', (completed, total) => logger.update(`Exported ${completed} of ${total} items`, 'info'));
   builder.on('error', err => logger.error(err.message));
