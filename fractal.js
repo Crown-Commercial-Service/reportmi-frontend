@@ -10,13 +10,13 @@ fractal.set('project.title', 'CCS Report MI Service Frontend');
 fractal.components.set('path', __dirname + '/components');
 
 /* Tell Fractal where the documentation pages will live */
-fractal.docs.set('path', __dirname + '/docs');
+fractal.docs.set('path', __dirname + '/documentation');
 
 /* Tell Fractal where the assets will live */
 fractal.web.set('static.path', __dirname + '/public');
 
 // destination for the static export
-fractal.web.set('builder.dest', 'dist');
+fractal.web.set('builder.dest', 'docs');
 
 
 /* Tell Fractal that components default to work in progress */
