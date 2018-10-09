@@ -1,7 +1,8 @@
 {
   "name": "reportmi-frontend",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Frontend components and patterns for the Report MI service",
+  "repository": "github:Crown-Commercial-Service/reportmi-frontend",
   "main": "fractal.js",
   "scripts": {
     "start": "npm run develop",
