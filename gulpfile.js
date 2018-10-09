@@ -30,7 +30,7 @@ gulp.task('watch', function () {
   gulp.watch('stylesheets/**/*.scss', ['sass']);
 });
 
-gulp.task('fractal:develop', ['scripts','images','watch'], function(){
+gulp.task('fractal:develop', ['sass','scripts','images','watch'], function(){
   const server = fractal.web.server({
       sync: true
   });
