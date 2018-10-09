@@ -1,8 +1,8 @@
 {
-  "name": "ccs-frontend",
+  "name": "reportmi-frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "fractal.js",
   "scripts": {
     "start": "npm run develop",
     "develop": "npx gulp fractal:develop",
@@ -10,13 +10,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "meyric@dxw.com",
+  "license": "MIT",
   "dependencies": {
-    "@frctl/fractal": "^1.1.7",
-    "govuk-frontend": "^2.0.0"
   },
   "devDependencies": {
+    "@frctl/fractal": "^1.1.7",
+    "govuk-frontend": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-sass": "^4.0.1"
   }
