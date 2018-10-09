@@ -9,6 +9,10 @@ const logger = fractal.cli.console;
 gulp.task('sass', function () {
   return gulp.src('stylesheets/**/*.scss')
               .pipe(sass({includePaths: ['node_modules', 'stylesheets']}))
+              .on('error', function (err) {
+                console.log(err.toString());
+                this.emit('end');
+              })
               .pipe(gulp.dest('public'))
 });
 
