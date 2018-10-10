@@ -20,7 +20,7 @@ fractal.web.set('builder.dest', 'docs');
 
 
 /* Tell Fractal that components default to work in progress */
-fractal.components.set('default.status', 'prototype');
+fractal.components.set('default.status', 'wip');
 
 /* Tell Fractal to use a white theme */
 const mandelbrot = require('@frctl/mandelbrot');
