@@ -35,7 +35,8 @@ Where a new component is added, we use the *ccs* namespace:
 ```ccs-pagination```
 
 ## Build
-Run the build process to to create static site in the *dist* directory.
+Run the build process to to create static site in the *docs* directory, this is so we can publish to
+Github Pages.
 
 ```npm run build```
 
