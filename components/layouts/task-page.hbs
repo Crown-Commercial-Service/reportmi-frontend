@@ -1,8 +1,8 @@
 <div class="govuk-width-container">
   <main class="govuk-main-wrapper " id="main-content" role="main">
     <h1 class="govuk-heading-l govuk-visably-hidden">Tasks</h1>
-    {{>@task}}
-    {{>@task}}
-    {{>@task}}
+    {{#each tasks as |task|}}
+      {{render '@task' task}}
+    {{/each}}
   </main>
 </div>

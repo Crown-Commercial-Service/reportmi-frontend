@@ -1,5 +1,4 @@
 context:
-  task:
     id: 12345
     complete: false
     errors: false
