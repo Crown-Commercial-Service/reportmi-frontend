@@ -1,0 +1,25 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="framework-autocomplete">Find a framework</label>
+  <div id="framework-autocomplete-container"></div>
+</div>
+<script>
+  const frameworks = [
+    'RM0000',
+    'RM0001',
+    'RM0002',
+    'RM0003',
+    'RM0004',
+    'RM0005',
+    'RM0006',
+    'RM0007',
+    'RM0008',
+    'RM0009',
+    'RM0010'
+  ]
+
+  accessibleAutocomplete({
+    element: document.querySelector('#framework-autocomplete-container'),
+    id: 'framework-autocomplete',
+    source: frameworks
+  })
+</script>

@@ -22,7 +22,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('scripts', function () {
-  return gulp.src(['node_modules/govuk-frontend/all.js'])
+  return gulp.src(['node_modules/govuk-frontend/all.js', 'node_modules/accessible-autocomplete/dist/accessible-autocomplete.min.js'])
               .pipe(gulp.dest('public'))
 });
 
