@@ -162,7 +162,7 @@
                 RM0000 Framework name
             <span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"govuk-heading-s"</span>&gt;</span>
-                Report management information for
+                Report management information for October
             <span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span>
@@ -185,23 +185,23 @@
     
     <div class="Browser-panel Browser-code" data-role="tab-panel" id="browser-049db854b5d9901c439593e7cd278791-panel-view">
     <code class="Code Code--lang-handlebars">
-        <pre><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ccs-task"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"task-</span></span></span><span class="hljs-template-variable">{{ task.id }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
+        <pre><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ccs-task"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"task-</span></span></span><span class="hljs-template-variable">{{ id }}</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ccs-task__information"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ccs-task__statuses"</span>&gt;</span>
-      </span><span class="hljs-template-tag">{{#<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> task.complete}}</span><span class="xml">
+      </span><span class="hljs-template-tag">{{#<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> complete}}</span><span class="xml">
         <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"govuk-tag govuk-tag__success"</span>&gt;</span>Completed<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
       </span><span class="hljs-template-tag">{{/<span class="hljs-name"><span class="hljs-builtin-name">if</span></span>}}</span><span class="xml">
-      </span><span class="hljs-template-tag">{{#<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> task.error}}</span><span class="xml">
+      </span><span class="hljs-template-tag">{{#<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> error}}</span><span class="xml">
         <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"govuk-tag govuk-tag__failure"</span>&gt;</span>Errors<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
       </span><span class="hljs-template-tag">{{/<span class="hljs-name"><span class="hljs-builtin-name">if</span></span>}}</span><span class="xml">
-      </span><span class="hljs-template-tag">{{#<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> task.late}}</span><span class="xml">
+      </span><span class="hljs-template-tag">{{#<span class="hljs-name"><span class="hljs-builtin-name">if</span></span> late}}</span><span class="xml">
         <span class="hljs-tag">&lt;<span class="hljs-name">strong</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"govuk-tag govuk-tag__warning"</span>&gt;</span>Late<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
       </span><span class="hljs-template-tag">{{/<span class="hljs-name"><span class="hljs-builtin-name">if</span></span>}}</span><span class="xml">
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"ccs-task__body"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"govuk-heading-m"</span>&gt;</span>
-        </span><span class="hljs-template-variable">{{task.framework.short_name}}</span><span class="xml">
-        </span><span class="hljs-template-variable">{{task.framework.name}}</span><span class="xml">
+        </span><span class="hljs-template-variable">{{framework.short_name}}</span><span class="xml">
+        </span><span class="hljs-template-variable">{{framework.name}}</span><span class="xml">
       <span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">h4</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"govuk-heading-s"</span>&gt;</span>
         Report management information for </span><span class="hljs-template-variable">{{month}}</span><span class="xml">
@@ -229,16 +229,14 @@
         
             
             <pre>{
-  <span class="hljs-attr">"task"</span>: {
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">12345</span>,
-    <span class="hljs-attr">"complete"</span>: <span class="hljs-literal">null</span>,
-    <span class="hljs-attr">"errors"</span>: <span class="hljs-literal">null</span>,
-    <span class="hljs-attr">"late"</span>: <span class="hljs-literal">null</span>,
-    <span class="hljs-attr">"month"</span>: <span class="hljs-string">"October"</span>,
-    <span class="hljs-attr">"framework"</span>: {
-      <span class="hljs-attr">"short_name"</span>: <span class="hljs-string">"RM0000"</span>,
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Framework name"</span>
-    }
+  <span class="hljs-attr">"id"</span>: <span class="hljs-number">12345</span>,
+  <span class="hljs-attr">"complete"</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">"errors"</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">"late"</span>: <span class="hljs-literal">null</span>,
+  <span class="hljs-attr">"month"</span>: <span class="hljs-string">"October"</span>,
+  <span class="hljs-attr">"framework"</span>: {
+    <span class="hljs-attr">"short_name"</span>: <span class="hljs-string">"RM0000"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Framework name"</span>
   }
 }</pre>
             
