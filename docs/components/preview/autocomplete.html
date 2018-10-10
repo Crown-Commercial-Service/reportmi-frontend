@@ -15,7 +15,25 @@
 </script>
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-<strong class="govuk-tag govuk-tag__warning">Warning</strong>
+<div class="govuk-form-group">
+  <label class="govuk-label" for="framework-autocomplete">Label</label>
+  <div id="framework-autocomplete-container"></div>
+</div>
+<script>
+  const frameworks = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5 ',
+  ]
+
+  accessibleAutocomplete({
+    element: document.querySelector('#framework-autocomplete-container'),
+    id: 'framework-autocomplete',
+    source: frameworks
+  })
+</script>
 
 
 <script>window.GOVUKFrontend.initAll()</script>
