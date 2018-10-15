@@ -8,18 +8,21 @@
     "start": "npm run develop",
     "develop": "npx gulp fractal:develop",
     "build": "npx gulp fractal:build",
+    "lint": "npx sass-lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "meyric@dxw.com",
   "license": "MIT",
   "dependencies": {
+
   },
   "devDependencies": {
     "@frctl/fractal": "^1.1.7",
     "govuk-frontend": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-sass": "^4.0.1",
+    "sass-lint": "^1.12.1",
     "accessible-autocomplete": "^1.6.1"
   }
 }
