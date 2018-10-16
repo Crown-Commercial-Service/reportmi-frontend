@@ -11,7 +11,7 @@
 # Linter SpaceBeforeBrace, option "allow_single_line_padding"
 
 files:
-  include: '**/*.s+(a|c)ss'
+  include: 'stylesheets/**/*.scss'
 options:
   formatter: stylish
   merge-default-rules: true

@@ -8,14 +8,13 @@
     "start": "npm run develop",
     "develop": "npx gulp fractal:develop",
     "build": "npx gulp fractal:build",
-    "lint": "npx sass-lint",
+    "lint": "npx -q sass-lint -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "meyric@dxw.com",
   "license": "MIT",
   "dependencies": {
-
   },
   "devDependencies": {
     "@frctl/fractal": "^1.1.7",
