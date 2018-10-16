@@ -1,6 +1,6 @@
-/* GOVUK Frontend settings*/
+// GOVUK Frontend settings
 @import "govuk-frontend/settings/all";
-// GOVUK Frontend settings overrides */
+// GOVUK Frontend settings overrides
 @import "settings";
 
 @import "govuk-frontend/tools/all";
@@ -9,7 +9,7 @@
 @import "govuk-frontend/core/all";
 @import "govuk-frontend/objects/all";
 
-/* List of compoennets we wish to include. Can be ours or theirs */
+// List of compoennets we wish to include. Can be ours or theirs
 @import "components/all";
 
 @import "govuk-frontend/utilities/all";
