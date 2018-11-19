@@ -1,0 +1,18 @@
+**Report management informaiton**
+
+**Report no buiness**  
+Previously refered to as a 'nil return'.
+
+**Supplier**
+
+**Customer**
+
+**Task**
+
+**Submission**
+
+**Supplier user**
+
+**CCS user**
+
+**Validation**
