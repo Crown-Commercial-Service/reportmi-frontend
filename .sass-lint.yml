@@ -227,7 +227,8 @@ rules:
 
   # Rule no-url-protocols will enforce that protocols and domains are not used within urls.
   # https://github.com/sasstools/sass-lint/blob/master/docs/rules/no-url-protocols.md
-  no-url-protocols: 1
+  no-url-protocols: 0
+  no-url-domains: 0
 
   # Rule no-vendor-prefixes will enforce that vendor prefixes are not allowed to be used.
   # https://github.com/sasstools/sass-lint/blob/master/docs/rules/no-vendor-prefixes.md
@@ -239,7 +240,7 @@ rules:
 
   # Rule placeholder-in-extend will enforce whether extends should only include placeholder selectors.
   # https://github.com/sasstools/sass-lint/blob/master/docs/rules/placeholder-in-extend.md
-  placeholder-in-extend: 1
+  placeholder-in-extend: 0
 
   # Rule placeholder-name-format will enforce a convention for placeholder names.
   # https://github.com/sasstools/sass-lint/blob/master/docs/rules/placeholder-name-format.md
