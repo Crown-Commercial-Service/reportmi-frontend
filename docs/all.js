@@ -1159,7 +1159,7 @@ Details.prototype.destroy = function (node) {
 
     if (detect) return
 
-    // Polyfill from https://raw.githubusercontent.com/Financial-Times/polyfill-service/8717a9e04ac7aff99b4980fbedead98036b0929a/packages/polyfill-library/polyfills/Element/prototype/classList/polyfill.js
+    // Polyfill from https://cdn.polyfill.io/v2/polyfill.js?features=Element.prototype.classList&flags=always
     (function (global) {
       var dpSupport = true;
       var defineGetter = function (object, name, fn, configurable) {
@@ -1236,6 +1236,188 @@ Details.prototype.destroy = function (node) {
 
 }).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
 
+function CharacterCount ($module) {
+  this.$module = $module;
+  this.$textarea = $module.querySelector('.js-character-count');
+}
+
+CharacterCount.prototype.defaults = {
+  characterCountAttribute: 'data-maxlength',
+  wordCountAttribute: 'data-maxwords'
+};
+
+// Initialize component
+CharacterCount.prototype.init = function () {
+  // Check for module
+  var $module = this.$module;
+  var $textarea = this.$textarea;
+  if (!$textarea) {
+    return
+  }
+
+  // Read options set using dataset ('data-' values)
+  this.options = this.getDataset($module);
+
+  // Determine the limit attribute (characters or words)
+  var countAttribute = this.defaults.characterCountAttribute;
+  if (this.options.maxwords) {
+    countAttribute = this.defaults.wordCountAttribute;
+  }
+
+  // Save the element limit
+  this.maxLength = $module.getAttribute(countAttribute);
+
+  // Check for limit
+  if (!this.maxLength) {
+    return
+  }
+
+  // Generate and reference message
+  var boundCreateCountMessage = this.createCountMessage.bind(this);
+  this.countMessage = boundCreateCountMessage();
+
+  // If there's a maximum length defined and the count message exists
+  if (this.countMessage) {
+    // Remove hard limit if set
+    $module.removeAttribute('maxlength');
+
+    // Bind event changes to the textarea
+    var boundChangeEvents = this.bindChangeEvents.bind(this);
+    boundChangeEvents();
+
+    // Update count message
+    var boundUpdateCountMessage = this.updateCountMessage.bind(this);
+    boundUpdateCountMessage();
+  }
+};
+
+// Read data attributes
+CharacterCount.prototype.getDataset = function (element) {
+  var dataset = {};
+  var attributes = element.attributes;
+  if (attributes) {
+    for (var i = 0; i < attributes.length; i++) {
+      var attribute = attributes[i];
+      var match = attribute.name.match(/^data-(.+)/);
+      if (match) {
+        dataset[match[1]] = attribute.value;
+      }
+    }
+  }
+  return dataset
+};
+
+// Counts characters or words in text
+CharacterCount.prototype.count = function (text) {
+  var length;
+  if (this.options.maxwords) {
+    var tokens = text.match(/\S+/g) || []; // Matches consecutive non-whitespace chars
+    length = tokens.length;
+  } else {
+    length = text.length;
+  }
+  return length
+};
+
+// Generate count message and bind it to the input
+// returns reference to the generated element
+CharacterCount.prototype.createCountMessage = function () {
+  var countElement = this.$textarea;
+  var elementId = countElement.id;
+  // Check for existing info count message
+  var countMessage = document.getElementById(elementId + '-info');
+  // If there is no existing info count message we add one right after the field
+  if (elementId && !countMessage) {
+    countElement.insertAdjacentHTML('afterend', '<span id="' + elementId + '-info" class="govuk-hint govuk-character-count__message" aria-live="polite"></span>');
+    this.describedBy = countElement.getAttribute('aria-describedby');
+    this.describedByInfo = this.describedBy + ' ' + elementId + '-info';
+    countElement.setAttribute('aria-describedby', this.describedByInfo);
+    countMessage = document.getElementById(elementId + '-info');
+  } else {
+  // If there is an existing info count message we move it right after the field
+    countElement.insertAdjacentElement('afterend', countMessage);
+  }
+  return countMessage
+};
+
+// Bind input propertychange to the elements and update based on the change
+CharacterCount.prototype.bindChangeEvents = function () {
+  var $textarea = this.$textarea;
+  $textarea.addEventListener('keyup', this.checkIfValueChanged.bind(this));
+
+  // Bind focus/blur events to start/stop polling
+  $textarea.addEventListener('focus', this.handleFocus.bind(this));
+  $textarea.addEventListener('blur', this.handleBlur.bind(this));
+};
+
+// Speech recognition software such as Dragon NaturallySpeaking will modify the
+// fields by directly changing its `value`. These changes don't trigger events
+// in JavaScript, so we need to poll to handle when and if they occur.
+CharacterCount.prototype.checkIfValueChanged = function () {
+  if (!this.$textarea.oldValue) this.$textarea.oldValue = '';
+  if (this.$textarea.value !== this.$textarea.oldValue) {
+    this.$textarea.oldValue = this.$textarea.value;
+    var boundUpdateCountMessage = this.updateCountMessage.bind(this);
+    boundUpdateCountMessage();
+  }
+};
+
+// Update message box
+CharacterCount.prototype.updateCountMessage = function () {
+  var countElement = this.$textarea;
+  var options = this.options;
+  var countMessage = this.countMessage;
+
+  // Determine the remaining number of characters/words
+  var currentLength = this.count(countElement.value);
+  var maxLength = this.maxLength;
+  var remainingNumber = maxLength - currentLength;
+
+  // Set threshold if presented in options
+  var thresholdPercent = options.threshold ? options.threshold : 0;
+  var thresholdValue = maxLength * thresholdPercent / 100;
+  if (thresholdValue > currentLength) {
+    countMessage.classList.add('govuk-character-count__message--disabled');
+  } else {
+    countMessage.classList.remove('govuk-character-count__message--disabled');
+  }
+
+  // Update styles
+  if (remainingNumber < 0) {
+    countElement.classList.add('govuk-textarea--error');
+    countMessage.classList.remove('govuk-hint');
+    countMessage.classList.add('govuk-error-message');
+  } else {
+    countElement.classList.remove('govuk-textarea--error');
+    countMessage.classList.remove('govuk-error-message');
+    countMessage.classList.add('govuk-hint');
+  }
+
+  // Update message
+  var charVerb = 'remaining';
+  var charNoun = 'character';
+  var displayNumber = remainingNumber;
+  if (options.maxwords) {
+    charNoun = 'word';
+  }
+  charNoun = charNoun + ((remainingNumber === -1 || remainingNumber === 1) ? '' : 's');
+
+  charVerb = (remainingNumber < 0) ? 'too many' : 'remaining';
+  displayNumber = Math.abs(remainingNumber);
+
+  countMessage.innerHTML = 'You have ' + displayNumber + ' ' + charNoun + ' ' + charVerb;
+};
+
+CharacterCount.prototype.handleFocus = function () {
+  // Check if value changed on focus
+  this.valueChecker = setInterval(this.checkIfValueChanged.bind(this), 1000);
+};
+
+CharacterCount.prototype.handleBlur = function () {
+  // Cancel value checking on blur
+  clearInterval(this.valueChecker);
+};
+
 function Checkboxes ($module) {
   this.$module = $module;
   this.$inputs = $module.querySelectorAll('input[type="checkbox"]');
@@ -1288,6 +1470,53 @@ Checkboxes.prototype.handleClick = function (event) {
   }
 };
 
+(function(undefined) {
+
+  // Detection from https://raw.githubusercontent.com/Financial-Times/polyfill-service/1f3c09b402f65bf6e393f933a15ba63f1b86ef1f/packages/polyfill-library/polyfills/Element/prototype/matches/detect.js
+  var detect = (
+    'document' in this && "matches" in document.documentElement
+  );
+
+  if (detect) return
+
+  // Polyfill from https://raw.githubusercontent.com/Financial-Times/polyfill-service/1f3c09b402f65bf6e393f933a15ba63f1b86ef1f/packages/polyfill-library/polyfills/Element/prototype/matches/polyfill.js
+  Element.prototype.matches = Element.prototype.webkitMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || function matches(selector) {
+    var element = this;
+    var elements = (element.document || element.ownerDocument).querySelectorAll(selector);
+    var index = 0;
+
+    while (elements[index] && elements[index] !== element) {
+      ++index;
+    }
+
+    return !!elements[index];
+  };
+
+}).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+
+(function(undefined) {
+
+  // Detection from https://raw.githubusercontent.com/Financial-Times/polyfill-service/1f3c09b402f65bf6e393f933a15ba63f1b86ef1f/packages/polyfill-library/polyfills/Element/prototype/closest/detect.js
+  var detect = (
+    'document' in this && "closest" in document.documentElement
+  );
+
+  if (detect) return
+
+    // Polyfill from https://raw.githubusercontent.com/Financial-Times/polyfill-service/1f3c09b402f65bf6e393f933a15ba63f1b86ef1f/packages/polyfill-library/polyfills/Element/prototype/closest/polyfill.js
+  Element.prototype.closest = function closest(selector) {
+    var node = this;
+
+    while (node) {
+      if (node.matches(selector)) return node;
+      else node = 'SVGElement' in window && node instanceof SVGElement ? node.parentNode : node.parentElement;
+    }
+
+    return null;
+  };
+
+}).call('object' === typeof window && window || 'object' === typeof self && self || 'object' === typeof global && global || {});
+
 function ErrorSummary ($module) {
   this.$module = $module;
 }
@@ -1300,6 +1529,119 @@ ErrorSummary.prototype.init = function () {
   window.addEventListener('load', function () {
     $module.focus();
   });
+
+  $module.addEventListener('click', this.handleClick.bind(this));
+};
+
+/**
+* Click event handler
+*
+* @param {MouseEvent} event - Click event
+*/
+ErrorSummary.prototype.handleClick = function (event) {
+  var target = event.target;
+  if (this.focusTarget(target)) {
+    event.preventDefault();
+  }
+};
+
+/**
+ * Focus the target element
+ *
+ * By default, the browser will scroll the target into view. Because our labels
+ * or legends appear above the input, this means the user will be presented with
+ * an input without any context, as the label or legend will be off the top of
+ * the screen.
+ *
+ * Manually handling the click event, scrolling the question into view and then
+ * focussing the element solves this.
+ *
+ * This also results in the label and/or legend being announced correctly in
+ * NVDA (as tested in 2018.3.2) - without this only the field type is announced
+ * (e.g. "Edit, has autocomplete").
+ *
+ * @param {HTMLElement} $target - Event target
+ * @returns {boolean} True if the target was able to be focussed
+ */
+ErrorSummary.prototype.focusTarget = function ($target) {
+  // If the element that was clicked was not a link, return early
+  if ($target.tagName !== 'A' || $target.href === false) {
+    return false
+  }
+
+  var inputId = this.getFragmentFromUrl($target.href);
+  var $input = document.getElementById(inputId);
+  if (!$input) {
+    return false
+  }
+
+  var $legendOrLabel = this.getAssociatedLegendOrLabel($input);
+  if (!$legendOrLabel) {
+    return false
+  }
+
+  // Prefer using the history API where possible, as updating
+  // window.location.hash causes the viewport to jump to the input briefly
+  // before then scrolling to the label/legend in IE10, IE11 and Edge (as tested
+  // in Edge 17).
+  if (window.history.pushState) {
+    window.history.pushState(null, null, '#' + inputId);
+  } else {
+    window.location.hash = inputId;
+  }
+
+  // Scroll the legend or label into view *before* calling focus on the input to
+  // avoid extra scrolling in browsers that don't support `preventScroll` (which
+  // at time of writing is most of them...)
+  $legendOrLabel.scrollIntoView();
+  $input.focus({ preventScroll: true });
+
+  return true
+};
+
+/**
+ * Get fragment from URL
+ *
+ * Extract the fragment (everything after the hash) from a URL, but not including
+ * the hash.
+ *
+ * @param {string} url - URL
+ * @returns {string} Fragment from URL, without the hash
+ */
+ErrorSummary.prototype.getFragmentFromUrl = function (url) {
+  if (url.indexOf('#') === -1) {
+    return false
+  }
+
+  return url.split('#').pop()
+};
+
+/**
+ * Get associated legend or label
+ *
+ * Returns the first element that exists from this list:
+ *
+ * - The `<legend>` associated with the closest `<fieldset>` ancestor
+ * - The first `<label>` that is associated with the input using for="inputId"
+ * - The closest parent `<label>`
+ *
+ * @param {HTMLElement} $input - The input
+ * @returns {HTMLElement} Associated legend or label, or null if no associated
+ *                        legend or label can be found
+ */
+ErrorSummary.prototype.getAssociatedLegendOrLabel = function ($input) {
+  var $fieldset = $input.closest('fieldset');
+
+  if ($fieldset) {
+    var legends = $fieldset.getElementsByTagName('legend');
+
+    if (legends.length) {
+      return legends[0]
+    }
+  }
+
+  return document.querySelector("label[for='" + $input.getAttribute('id') + "']") ||
+    $input.closest('label')
 };
 
 function Header ($module) {
@@ -1509,9 +1851,11 @@ Tabs.prototype.teardown = function () {
 
 Tabs.prototype.onHashChange = function (e) {
   var hash = window.location.hash;
-  if (!this.hasTab(hash)) {
+  var $tabWithHash = this.getTab(hash);
+  if (!$tabWithHash) {
     return
   }
+
   // Prevent changing the hash
   if (this.changingHash) {
     this.changingHash = false;
@@ -1520,15 +1864,10 @@ Tabs.prototype.onHashChange = function (e) {
 
   // Show either the active tab according to the URL's hash or the first tab
   var $previousTab = this.getCurrentTab();
-  var $activeTab = this.getTab(hash) || this.$tabs[0];
 
   this.hideTab($previousTab);
-  this.showTab($activeTab);
-  $activeTab.focus();
-};
-
-Tabs.prototype.hasTab = function (hash) {
-  return this.$module.querySelector(hash)
+  this.showTab($tabWithHash);
+  $tabWithHash.focus();
 };
 
 Tabs.prototype.hideTab = function ($tab) {
@@ -1542,7 +1881,7 @@ Tabs.prototype.showTab = function ($tab) {
 };
 
 Tabs.prototype.getTab = function (hash) {
-  return this.$module.querySelector('a[role="tab"][href="' + hash + '"]')
+  return this.$module.querySelector('.govuk-tabs__tab[href="' + hash + '"]')
 };
 
 Tabs.prototype.setAttributes = function ($tab) {
@@ -1655,16 +1994,18 @@ Tabs.prototype.hidePanel = function (tab) {
 
 Tabs.prototype.unhighlightTab = function ($tab) {
   $tab.setAttribute('aria-selected', 'false');
+  $tab.classList.remove('govuk-tabs__tab--selected');
   $tab.setAttribute('tabindex', '-1');
 };
 
 Tabs.prototype.highlightTab = function ($tab) {
   $tab.setAttribute('aria-selected', 'true');
+  $tab.classList.add('govuk-tabs__tab--selected');
   $tab.setAttribute('tabindex', '0');
 };
 
 Tabs.prototype.getCurrentTab = function () {
-  return this.$module.querySelector('[role=tab][aria-selected=true]')
+  return this.$module.querySelector('.govuk-tabs__tab--selected')
 };
 
 // this is because IE doesn't always return the actual value but a relative full path
@@ -1684,6 +2025,11 @@ function initAll () {
   var $details = document.querySelectorAll('details');
   nodeListForEach($details, function ($detail) {
     new Details($detail).init();
+  });
+
+  var $characterCount = document.querySelectorAll('[data-module="character-count"]');
+  nodeListForEach($characterCount, function ($characterCount) {
+    new CharacterCount($characterCount).init();
   });
 
   var $checkboxes = document.querySelectorAll('[data-module="checkboxes"]');
@@ -1713,6 +2059,7 @@ function initAll () {
 exports.initAll = initAll;
 exports.Button = Button;
 exports.Details = Details;
+exports.CharacterCount = CharacterCount;
 exports.Checkboxes = Checkboxes;
 exports.ErrorSummary = ErrorSummary;
 exports.Header = Header;
