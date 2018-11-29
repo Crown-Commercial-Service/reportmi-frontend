@@ -1,37 +1,38 @@
 <ul class="ccs-tasks">
   <li class="ccs-task" id="task-{{ id }}">
-  <header class="ccs-task__information">
-    <div class="ccs-task__statuses">
-      {{#if complete}}
-        <strong class="govuk-tag govuk-tag__success">Completed</strong>
-      {{/if}}
-      {{#if error}}
-        <strong class="govuk-tag govuk-tag__failure">Errors</strong>
-      {{/if}}
-      {{#if late}}
-        <strong class="govuk-tag govuk-tag__warning">Late</strong>
-      {{/if}}
+    <header class="ccs-task__information">
+      <div class="ccs-task__statuses">
+        {{#if complete}}
+          <strong class="govuk-tag govuk-tag__success">Completed</strong>
+        {{/if}}
+        {{#if error}}
+          <strong class="govuk-tag govuk-tag__failure">Errors</strong>
+        {{/if}}
+        {{#if late}}
+          <strong class="govuk-tag govuk-tag__warning">Late</strong>
+        {{/if}}
+      </div>
+      <div class="ccs-task__body">
+        <h3 class="govuk-heading-m">
+          {{framework.short_name}}
+          {{framework.name}}
+        </h3>
+        <h4 class="govuk-heading-s">
+          Report management information for {{month}}
+        </h4>
+      </div>
+    </header>
+    <div class="ccs-task__action">
+      <div class="ccs-task__action--secondary">
+        <p>
+          <a href="#" aria-lable="Download template for {{framework.short_name}} {{framework.name}}">Download template</a>
+        </p>
+      </div>
+      <div class="ccs-task__action--primary">
+          <a href="#" class="govuk-button" aria-label="Report management information for {{task.supplier_name}} on {{framework.short_name}}">Report management information</a>
+          <a href="#" class="govuk-button" aria-label="Report no business">Report no business</a>
+      </div>
+
     </div>
-    <div class="ccs-task__body">
-      <h3 class="govuk-heading-m">
-        {{framework.short_name}}
-        {{framework.name}}
-      </h3>
-      <h4 class="govuk-heading-s">
-        Report management information for {{month}}
-      </h4>
-    </div>
-  </header>
-  <div class="ccs-task__action">
-    <div class="ccs-task__action--primary">
-        <a href="#" class="govuk-button">Report management information</a>
-        <a href="#" class="govuk-button">Report no business (Nil return)</a>
-    </div>
-    <div class="ccs-task__action--secondary">
-      <p>
-        <a href="#">Download template</a>
-      </p>
-    </div>
-  </div>
   </li>
 </ul>

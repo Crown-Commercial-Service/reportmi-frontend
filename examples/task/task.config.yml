@@ -7,3 +7,4 @@ context:
     framework:
       short_name: 'RM0000'
       name: 'Framework name'
+      supplier_name: 'Supplier ABC'
