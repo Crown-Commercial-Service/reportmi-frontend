@@ -8,6 +8,7 @@ context:
     framework:
       short_name: 'RM0000'
       name: 'Framework name'
+      supplier_name: 'Supplier Name'
   - id: 12346
     complete: false
     errors: false
@@ -16,6 +17,7 @@ context:
     framework:
       short_name: 'RM0001'
       name: 'Framework name'
+      supplier_name: 'Supplier Name'
   - id: 12347
     complete: false
     errors: false
@@ -24,6 +26,7 @@ context:
     framework:
       short_name: 'RM0002'
       name: 'Framework name'
+      supplier_name: 'Supplier Name'
   - id: 12348
     complete: false
     errors: false
@@ -32,3 +35,4 @@ context:
     framework:
       short_name: 'RM0003'
       name: 'Framework name'
+      supplier_name: 'Supplier Name'
