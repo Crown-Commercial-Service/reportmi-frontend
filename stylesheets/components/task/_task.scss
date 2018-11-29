@@ -1,13 +1,15 @@
+.ccs-tasks {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
 .ccs-task {
   display: flex;
   padding-top: govuk-spacing(5);
   border-top: 1px solid govuk-colour("grey-2");
   background-color: govuk-colour("white");
   flex-direction: column;
-}
-
-h3 {
-  margin-bottom: govuk-spacing(1);
 }
 
 .ccs-task__information {
@@ -32,7 +34,6 @@ h3 {
 
 .ccs-task__action {
   display: flex;
-  flex-direction: row-reverse;
   @include govuk-media-query($until: tablet) {
     flex-direction: column;
   }
@@ -41,11 +42,9 @@ h3 {
 .ccs-task__action--primary {
   text-align: right;
   flex-grow: 3;
-  align-items: flex-end;
 }
 
 .ccs-task__action--secondary {
-  align-items: flex-end;
   flex-grow: 1;
 }
 
