@@ -8,7 +8,7 @@ Extends the [GOVUK-Frontend](https://github.com/alphagov/govuk-design-system) co
 ## Goals
 - Maintain the GOVUK-Frontend module as a dependacy.
 - Styles only, markup is to show usage
-- Build to use in Rails applications
+- Simple to add to Rails applications
 
 ## Install
 
@@ -22,7 +22,9 @@ Launch the [Fractal](https://fractal.build/) UI and run watch tasks.
 
 ```npm start```
 
-We follow the GOVUK css coding standards:
+We follow the GOVUK css coding standards, run the linter:
+
+```npm run lint```
 
 https://github.com/alphagov/govuk-frontend/blob/master/docs/contributing/coding-standards/css.md
 
@@ -46,6 +48,9 @@ Github Pages.
   ```yarn add govuk-frontend```
 
 - Copy the contents of the *stylesheets* directory to *app/assets/stylesheets* in your Rails app
+
+- Copy the contents of the *images* directory to *app/assets/images* in your Rails app
+
 - Require *reportmi.scss* in the manifest
 
   ```*= require reportmi```
