@@ -1,0 +1,27 @@
+context:
+  frameworks:
+  - id: 12345
+    short_name: 'RM0000'
+    name: 'Framework name'
+    status: 'active'
+    supplier_count: 100
+  - id: 12345
+    short_name: 'RM0000'
+    name: 'Framework name'
+    status: 'active'
+    supplier_count: 43
+  - id: 12345
+    short_name: 'RM0000'
+    name: 'Framework name'
+    status: 'active'
+    supplier_count: 123
+  - id: 12345
+    short_name: 'RM0000'
+    name: 'Framework name'
+    status: 'active'
+    supplier_count: 54
+  - id: 12345
+    short_name: 'RM0000'
+    name: 'Framework name'
+    status: 'active'
+    supplier_count: 98
