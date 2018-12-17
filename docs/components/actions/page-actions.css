@@ -1,0 +1,7 @@
+.govuk-page-actions--actions {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+
+.govuk-page-actions--action {
+  margin-bottom: govuk-spacing(2); }

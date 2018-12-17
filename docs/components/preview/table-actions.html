@@ -16,12 +16,18 @@
 <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
 <main id="main-content">
-    <div class="govuk-form-group">
-    <label class="govuk-label govuk-visually-hidden" for="file-upload-1">
-      Upload a file
-    </label>
-    <input class="govuk-file-upload" id="file-upload-1" name="file-upload-1" type="file">
-  </div>
+  <nav aria-labelledby="table-actions-title-1" class="govuk-table-actions">
+  <h3 id="table-actions-title-1" class="govuk-visually-hidden">Row actions</h3>
+  <ul class="govuk-table-actions--actions">
+    <li class="govuk-table-actions--action"><a href="#">View</a></li>
+    <li class="govuk-table-actions--action"><a href="#">Remove</a></li>
+    <li class="govuk-table-actions--action">
+      <form>
+        <input type="submit" class="govuk-button--as-link" value="Unlink">
+      </form>
+    </li>
+  </ul>
+</nav>
 
 </main>
 
