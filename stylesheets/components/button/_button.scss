@@ -55,6 +55,7 @@ $button-shadow-size: $govuk-border-width-form-element;
   padding: 0;
   border: 0;
   color: govuk-colour("blue");
+  background-color: transparent;
   text-decoration: underline;
   @include govuk-font(19);
 
