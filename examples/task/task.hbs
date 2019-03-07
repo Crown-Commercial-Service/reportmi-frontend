@@ -1,4 +1,4 @@
-<section class="ccs-task" id="task-{{ id }}">
+<li class="ccs-task" id="task-{{ id }}">
   <header class="ccs-task__information">
     <div class="ccs-task__statuses">
       {{#if complete}}
@@ -12,24 +12,26 @@
       {{/if}}
     </div>
     <div class="ccs-task__body">
+      <h2 class="govuk-heading-s">
+        Report management information for January 2019
+      </h2>
       <h3 class="govuk-heading-m">
         {{framework.short_name}}
         {{framework.name}}
       </h3>
-      <h4 class="govuk-heading-s">
-        Report management information for {{month}}
-      </h4>
+      <p>Due 1 February 2019</p>
     </div>
   </header>
   <div class="ccs-task__action">
-    <div class="ccs-task__action--primary">
-        <a href="#" class="govuk-button">Report management information</a>
-        <a href="#" class="govuk-button">Report no business (Nil return)</a>
-    </div>
     <div class="ccs-task__action--secondary">
       <p>
         <a href="#">Download template</a>
       </p>
     </div>
+    <div class="ccs-task__action--primary">
+        <a href="#" class="govuk-button">Report management information</a>
+        <a href="#" class="govuk-button">Report no business</a>
+    </div>
+
   </div>
 </section>
